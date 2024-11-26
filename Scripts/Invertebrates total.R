@@ -153,7 +153,7 @@ dataclean <- dataclean %>%
     TRUE ~ NA_character_ #Assign NA to any unexpected values
   ))
 
-# Ensure elevation is a factor with specified order
+#Ensure elevation is a factor with specified order
 dataclean$elevation <- factor(dataclean$elevation, levels = c("High", "Middle", "Low"))
 
 
@@ -222,7 +222,100 @@ print(simpson_index)
 
 #Could indicate that the North actually may have better ecological health 
 
+#Group data by site, elevation, and order
+elevation_order_data <- dataclean %>%
+  group_by(site, elevation, order) %>%
+  summarise(individualCount = sum(individualCount, na.rm = TRUE), .groups = "drop")
+
+#Ensure elevation is a factor with specified levels
+elevation_order_data$elevation <- factor(elevation_order_data$elevation, levels = c("High", "Middle", "Low"))
+
+#Preview the data
+head(elevation_order_data)
+
+#Colour blind friendly colours
+colourpalette <- c(
+  "#E69F00",  
+  "#56B4E9",  
+  "#009E73",  
+  "#F0E442",  
+  "#0072B2",  
+  "#D55E00",  
+  "#CC79A7",  
+  "#999999", 
+  "#F28",  
+  "#4E79A7",
+  "#76B7B2"
+  
+)
+
+#Stacked bar plot showing relative abundance of orders across different elevations
+ggplot(elevation_order_data, aes(x = elevation, y = individualCount, fill = order)) +
+  geom_bar(stat = "identity", position = "stack") +
+  scale_fill_manual(values = colourpalette) + #Allows custom colours
+  facet_wrap(~ site, ncol = 2) + #Separate North and South hillsides
+  theme_minimal(base_size = 14) +
+  theme(
+    text = element_text(family = "Times New Roman", colour = "black"),
+    plot.title = element_text(face = "plain", size = 15, hjust = 0.5),
+    axis.title = element_text(face = "plain"),
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor = element_blank()
+  ) +
+  labs(
+    title = "", # No title as figure caption will be used
+    x = "Elevation Zone",
+    y = "Total Abundance",
+    fill = "Order"
+  ) +
+  scale_y_continuous(expand = c(0, 0))
 
 
+###Due to deciding that there are issues with considering elevation due to subjectivity and it not being easily comparable between the two hillsides I am taking out the elevation aspect of this graph: 
+#Aggregate data to compare North and South hillsides overall
+hill_order_data <- dataclean %>%
+  group_by(site, order) %>%
+  summarise(individualCount = sum(individualCount, na.rm = TRUE), .groups = "drop")
+
+#Plotting the relative abundance of different orders for North and South
+ggplot(hill_order_data, aes(x = site, y = individualCount, fill = order)) +
+  geom_bar(stat = "identity", position = "stack") +
+  scale_fill_manual(values = colourpalette) + 
+  theme_minimal(base_size = 14) +
+  theme(
+    text = element_text(family = "Times New Roman", colour = "black"),
+    plot.title = element_text(face = "plain", size = 15, hjust = 0.5),
+    axis.title = element_text(face = "plain"),
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor = element_blank()
+  ) +
+  labs(
+    title = "", 
+    x = "Hillside",
+    y = "Total Abundance",
+    fill = "Order"
+  ) +
+  scale_y_continuous(limits = c(0,250),expand = c(0, 0))
+
+###Number of individuals per site recorded###
+vertebrate_individuals_per_site <- data %>%
+  group_by(site) %>%
+  summarise(total_individuals = sum(individualCount, na.rm = TRUE))
+print(vertebrate_individuals_per_site)
+#North = 99
+#South = 219 
+
+###BETA DIVERSITY INDICES###
+#Sørensen index
+sorensen_index <- vegdist(order_matrix_numeric, method = "bray") # Bray-Curtis is essentially the Sørensen index for presence-absence data
+print(sorensen_index)
+#0.7025316
+
+#Jaccard index
+jaccard_index <- vegdist(order_matrix_numeric, method = "jaccard")
+print(jaccard_index)
+#0.8252788
 
 
