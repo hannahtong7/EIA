@@ -309,7 +309,7 @@ print(vertebrate_individuals_per_site)
 
 ###BETA DIVERSITY INDICES###
 #Sørensen index
-sorensen_index <- vegdist(order_matrix_numeric, method = "bray") # Bray-Curtis is essentially the Sørensen index for presence-absence data
+sorensen_index <- vegdist(order_matrix_numeric, method = "bray") #Bray-Curtis is essentially the Sørensen index for presence-absence data
 print(sorensen_index)
 #0.7025316
 
