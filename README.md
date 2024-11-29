@@ -4,43 +4,103 @@
 
 Human activities have significantly degraded ecosystems globally, leading to species decline and compromised ecosystem functions. This project conducts an **Ecological Impact Assessment (EIA)** of two hillsides in Lochranza, Isle of Arran, Scotland. By comparing biodiversity and habitat quality, the assessment aims to guide restoration efforts to improve ecological health.
 
-This study revealed that:
+### Key Findings
 
--   **South Hillside**: Higher biodiversity and presence of priority species, including the critically endangered *Sorbus arranensis*. However, its bog exhibits low biodiversity, requiring targeted restoration.
+-   **South Hillside**:
 
--   **North Hillside**: Greater ecological degradation, with more invasive species and poorer water quality. Despite this, it supports unique nocturnal communities and higher vertebrate richness.
+    -   Higher biodiversity and presence of priority species, including the critically endangered *Sorbus arranensis*.
 
-The EIA prioritizes restoring the South Hillside while addressing key issues on the North Hillside, such as invasive species management and water quality improvements.
+    -   The bog exhibits low biodiversity, requiring targeted restoration.
+
+-   **North Hillside**:
+
+    -   Greater ecological degradation, with more invasive species and poorer water quality.
+
+    -   Supports unique nocturnal communities and higher vertebrate richness.
+
+### Restoration Priorities
+
+-   Restore the South Hillside while addressing key issues on the North Hillside such as invasive species management and water quality improvements.
+
+------------------------------------------------------------------------
 
 ## Project Objectives
 
-1.  Compare biodiversity metrics (species richness, abundance, and distribution) across plants, invertebrates, and vertebrates.
+1.  **Compare Biodiversity Metrics**: Measure species richness, abundance, and distribution across plants, invertebrates, and vertebrates.
 
-2.  Assess habitat quality, focusing on priority and invasive species.
+2.  **Assess Habitat Quality**: Focus on priority and invasive species.
 
-3.  Identify areas for restoration based on ecological value and degradation levels.
+3.  **Identify Restoration Areas**: Highlight ecological value and degradation levels.
 
-4.  Develop tailored restoration recommendations.
+4.  **Develop Tailored Recommendations**: Propose restoration strategies for each hillside.
 
-## Key Findings
+------------------------------------------------------------------------
 
--   **Priority Species**: South Hillside supports 8 Red List species, 10 Biodiversity Action Plan species, and 5 nationally scarce species. North Hillside hosts unique vertebrate species but fewer priority taxa.
+## Methodology
 
--   **Invasive Species**: North Hillside has 9 invasive species versus 5 on the South Hillside. *Rhododendron ponticum*poses a significant threat to both areas.
+### Desk-Based Surveys
 
--   **Water Quality**: Streams on the South Hillside exhibited "very clean" conditions (WQI: 9.1), whereas the North stream showed "clean" conditions (WQI: 5.8).
+-   Identification of priority and invasive species using GIS, UK National Biodiversity Network data, and NatureScot resources.
 
--   **Biodiversity Metrics**:
+### Field Surveys
 
-    -   South Hillside showed higher alpha diversity for terrestrial invertebrates.
+-   **Phase I Habitat Survey**: Classification and mapping of vegetation and habitats.
 
-    -   North Hillside exhibited higher nocturnal invertebrate and vertebrate richness.
+-   **Invertebrates**:
+
+    -   Sweep netting, light trapping, and kick-net sampling for aquatic species.
+
+-   **Vertebrates**:
+
+    -   Visual/audio surveys, camera traps, and passive acoustic monitoring for bats.
+
+-   **Freshwater**:
+
+    -   Water quality assessments using Water Quality Index (WQI) and Average Score Per Taxon (ASPT).
+
+### Tools and Software
+
+-   **GIS**: ArcGIS, QGIS for mapping study sites and habitat classifications.
+
+-   **Data Analysis**: R with `vegan`, `rgbif`, and `ggplot2` packages for biodiversity indices and visualizations.
+
+-   **Audio Analysis**: BatDetect2 for nocturnal vertebrate recordings.
+
+------------------------------------------------------------------------
+
+## Results
+
+### Biodiversity Metrics
+
+-   **South Hillside**:
+
+    -   Higher alpha diversity for terrestrial invertebrates.
+
+    -   Supports 8 Red List species, 10 Biodiversity Action Plan species, and 5 nationally scarce species.
+
+    -   "Very clean" stream conditions (WQI: 9.1).
+
+-   **North Hillside**:
+
+    -   Higher nocturnal invertebrate and vertebrate richness.
+
+    -   Hosts 9 invasive species and supports unique vertebrate communities.
+
+    -   "Clean" stream conditions (WQI: 5.8).
+
+### Diversity Indices
+
+-   **Jaccard Index**: 0.4 (species similarity between sites).
+
+-   **Sørensen Index**: 0.57 (community overlap).
+
+------------------------------------------------------------------------
 
 ## Restoration Recommendations
 
 ### South Hillside
 
--   **Rhododendron ponticum Removal**: Implement mechanical and herbicide methods to restore native woodland and protect *Sorbus arranensis*.
+-   **Rhododendron ponticum Removal**: Use mechanical and herbicide methods to restore native woodland and protect *Sorbus arranensis*.
 
 -   **Bog Restoration**: Rewetting to improve amphibian habitats and support pollinators.
 
@@ -56,52 +116,56 @@ The EIA prioritizes restoring the South Hillside while addressing key issues on 
 
 -   **Grazing Management**: Reduce sheep grazing to promote vegetation recovery and enhance vertebrate habitats.
 
-## Methodology
-
-1.  **Desk-Based Survey**: Identification of priority and invasive species using GIS, UK National Biodiversity Network data, and NatureScot resources.
-
-2.  **Phase I Habitat Survey**: Classification and mapping of vegetation and habitats.
-
-3.  **Field Sampling**:
-
-    -   **Invertebrates**: Sweep netting, light trapping, kick-net sampling for aquatic species.
-
-    -   **Vertebrates**: Visual/audio surveys, camera traps, and passive acoustic monitoring for bats.
-
-## Tools and Software
-
--   **GIS**: ArcGIS, QGIS for mapping study sites and habitat classifications.
-
--   **Data Analysis**: R with `vegan`, `rgbif`, and `ggplot2` packages for biodiversity indices and visualizations.
-
--   **Audio Analysis**: BatDetect2 for nocturnal vertebrate recordings.
-
-## Results
-
--   Comprehensive biodiversity datasets, with alpha and beta diversity metrics for each taxa group.
-
--   Habitat maps highlighting dominant vegetation types and key ecological features.
-
--   Quantitative water quality indices (WQI, ASPT) for stream health assessment.
+------------------------------------------------------------------------
 
 ## Limitations
 
--   Limited sampling periods and accessibility constraints.
+-   **Sampling Periods**: Limited to a single season, introducing temporal bias.
 
--   Temporal bias due to single-season data collection.
+-   **Accessibility**: Challenges in remote and steep areas reduced sampling intensity.
 
--   Taxonomic identification to order level for invertebrates reduced sensitivity.
+-   **Taxonomic Sensitivity**: Invertebrate identification to order level limited resolution.
+
+------------------------------------------------------------------------
 
 ## Repository Contents
 
--   `data/`: Raw and processed biodiversity data.
+-   **`data/`**: Raw and processed biodiversity data.
 
--   `scripts/`: R scripts for data cleaning, analysis, and visualization.
+-   **`scripts/`**: R scripts for data cleaning, analysis, and visualization.
 
--   `figures/`: Habitat maps, diversity indices, and comparative analyses.
+-   **`figures/`**: Habitat maps, diversity indices, and comparative analyses.
 
--   `docs/`: Project report and supplementary materials.
+-   **`docs/`**: Project report and supplementary materials.
+
+------------------------------------------------------------------------
 
 ## Acknowledgments
 
 This project was conducted by a multidisciplinary team of nine researchers specializing in ecology, taxonomy, and conservation. Special thanks to NatureScot and the UK National Biodiversity Network for data access and support.
+
+------------------------------------------------------------------------
+
+## How to Run the Analysis
+
+1.  **Install Required Packages**:
+
+    ```         
+    install.packages(c("dplyr", "ggplot2", "vegan", "reshape2"))
+    ```
+
+2.  **Load Data**: Place datasets in the `data/` folder and ensure file paths are updated in scripts.
+
+3.  **Run Scripts**: Execute analysis scripts in the `scripts/` folder to generate biodiversity metrics and visualizations.
+
+4.  **Review Outputs**:
+
+    -   Results will be saved in `figures/`.
+
+    -   Processed data files will be in `data/`.
+
+------------------------------------------------------------------------
+
+## Contact
+
+For questions or collaborations, contact Hannah Tong at s2743332\@ed.ac.uk.
