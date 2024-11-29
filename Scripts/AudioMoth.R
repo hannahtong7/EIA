@@ -1,24 +1,29 @@
 library(vegan)
 
-
+# Load the dataset containing audio moth data
 data <- read.csv("audiomoths.csv")
 data
 
+#Extract only the "site" and "scientificName" columns for analysis
 filtered_data <- data[, c("site", "scientificName")]
-head(filtered_data)
-tail(filtered_data)
+head(filtered_data) #View the first few rows of filtered data
+tail(filtered_data) #View the last few rows of filtered data
 
+#Subset data for the "North" site
 north_data <- subset(filtered_data, site == "North")
-north_richness <- length(unique(north_data$scientificName))
+#Count unique species in the North site
+north_richness <- length(unique(north_data$scientificName)) 
 north_richness
 #5
 
-# Subset the data for "South" site
+#Subset the data for "South" site
 south_data <- subset(filtered_data, site == "South")
+#Count unique species in the South site
 south_richness <- length(unique(south_data$scientificName))
 south_richness
 #3
 
+#Identify unique and shared species between North and South sites
 north_species <- unique(north_data$scientificName)
 south_species <- unique(south_data$scientificName)
 
@@ -67,26 +72,26 @@ print(unique(long_data$Site))
 
 # Plotting the species presence/absence heatmap
 ggplot(long_data, aes(x = Site, y = Species, fill = factor(Presence))) +
-  geom_tile(color = "grey") +  
+  geom_tile(color = "grey") +  #Add tiles with grey borders
   scale_fill_manual(
-    values = c("white", "steelblue"),  
-    labels = c("Absent", "Present")
+    values = c("white", "steelblue"),  #Set colors for absence/presence
+    labels = c("Absent", "Present")   #Label the legend
   ) +
   labs(
-    title = "",
-    x = "Site",
-    y = "Species",
-    fill = "Status"
+    title = "",                       #No title of the plot
+    x = "Site",                       #X-axis label
+    y = "Species",                    #Y-axis label
+    fill = "Status"                   #Legend title
   ) +
-  theme_minimal() +
+  theme_minimal() +                   #Minimal theme for the plot
   theme(
-    axis.text.y = element_text(size = 8, family = "Times"),  
-    axis.text.x = element_text(size = 10, angle = 45, hjust = 1, family = "Times"),  
-    axis.title.y = element_text(size = 12, family = "Times"),  
-    axis.title.x = element_text(size = 12, family = "Times"),  
-    plot.title = element_text(hjust = 0.5, size = 14, family = "Times"), 
-    legend.text = element_text(size = 10, family = "Times"), 
-    legend.title = element_text(size = 12, family = "Times"),  
-    panel.grid = element_blank()  
+    axis.text.y = element_text(size = 8, family = "Times"),  #Customize Y-axis text
+    axis.text.x = element_text(size = 10, angle = 45, hjust = 1, family = "Times"),  #Customize X-axis text
+    axis.title.y = element_text(size = 12, family = "Times"),  #Customize Y-axis title
+    axis.title.x = element_text(size = 12, family = "Times"),  #Customize X-axis title
+    plot.title = element_text(hjust = 0.5, size = 14, family = "Times"),  #Customize plot title
+    legend.text = element_text(size = 10, family = "Times"),  #Customize legend text
+    legend.title = element_text(size = 12, family = "Times"),  #Customize legend title
+    panel.grid = element_blank()  #Remove grid lines for cleaner appearance
   )
 

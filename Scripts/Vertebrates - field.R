@@ -4,24 +4,28 @@ library(ggplot2)
 library(vegan)
 library(reshape2)
 
+#Load the dataset containing vertebrate data
 data <- read.csv("vertebrates.csv")
 
+#Filter only the relevant columns ("site" and "scientificName")
 filtered_data <- data[, c("site", "scientificName")]
 head(filtered_data)
 tail(filtered_data)
 
+#Calculate species richness for the "North" site
 north_data <- subset(filtered_data, site == "North")
 north_richness <- length(unique(north_data$scientificName))
 north_richness
 #20
 
-# Subset the data for "South" site
+#Calculate species richness for the "South" site
+#Subset the data for "South" site
 south_data <- subset(filtered_data, site == "South")
 south_richness <- length(unique(south_data$scientificName))
 south_richness
 #15
 
-
+#Identify unique and shared species between the North and South sites
 north_species <- unique(north_data$scientificName)
 south_species <- unique(south_data$scientificName)
 
@@ -50,31 +54,32 @@ cat("Sørensen Index:", sorensen_index, "\n")
 species_matrix <- table(filtered_data$scientificName, filtered_data$site)
 species_matrix <- as.matrix(species_matrix > 0)  # Convert counts to binary (1/0)
 
-
+#Reshape the matrix into a long format for plotting
 long_data <- melt(species_matrix)
 colnames(long_data) <- c("Species", "Site", "Presence")
 
+# Plot species presence/absence as a heatmap
 ggplot(long_data, aes(x = Site, y = Species, fill = factor(Presence))) +
-  geom_tile(color = "grey") +  
+  geom_tile(color = "grey") +  # Create tiles with grey borders
   scale_fill_manual(
-    values = c("white", "steelblue"),  
-    labels = c("Absent", "Present")
+    values = c("white", "steelblue"),  # Set colors for absence (white) and presence (blue)
+    labels = c("Absent", "Present")   # Legend labels
   ) +
   labs(
-    title = "Species Presence Across Sites",
-    x = "Site",
-    y = "Species",
-    fill = "Status"
+    title = "Species Presence Across Sites",  # Plot title
+    x = "Site",                              # X-axis label
+    y = "Species",                           # Y-axis label
+    fill = "Status"                          # Legend title
   ) +
-  theme_minimal() +
+  theme_minimal() +                          # Apply minimal theme
   theme(
-    axis.text.y = element_text(size = 8, family = "Times"),  
-    axis.text.x = element_text(size = 10, angle = 45, hjust = 1, family = "Times"),  
-    axis.title.y = element_text(size = 12, family = "Times"),  
-    axis.title.x = element_text(size = 12, family = "Times"),  
-    plot.title = element_text(hjust = 0.5, size = 14, family = "Times"), 
-    legend.text = element_text(size = 10, family = "Times"), 
-    legend.title = element_text(size = 12, family = "Times"),  
-    panel.grid = element_blank()  
+    axis.text.y = element_text(size = 8, family = "Times"),  # Customize Y-axis text
+    axis.text.x = element_text(size = 10, angle = 45, hjust = 1, family = "Times"),  # Customize X-axis text
+    axis.title.y = element_text(size = 12, family = "Times"),  # Customize Y-axis title
+    axis.title.x = element_text(size = 12, family = "Times"),  # Customize X-axis title
+    plot.title = element_text(hjust = 0.5, size = 14, family = "Times"),  # Customize plot title
+    legend.text = element_text(size = 10, family = "Times"),  # Customize legend text
+    legend.title = element_text(size = 12, family = "Times"),  # Customize legend title
+    panel.grid = element_blank()  # Remove grid lines for cleaner appearance
   )
 
